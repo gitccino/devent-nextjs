@@ -133,11 +133,28 @@ const EventSchema = new Schema<IEventDocument>(
 // Hooks
 // ------------------------------------------------------------------
 
-/** Generate slug from title on create. Skip if slug is already set. */
-EventSchema.pre("save", function (this: IEventDocument) {
+/**
+ * Generate a unique slug from the title before saving.
+ * If the base slug already exists, append a numeric suffix and
+ * keep incrementing until a free slot is found (e.g. "react-conf-2").
+ * Excludes the current document via `_id` so updates don't collide
+ * with themselves.
+ */
+EventSchema.pre("save", async function (this: IEventDocument) {
   if (!this.isModified("title") && this.slug) return;
 
-  this.slug = slugify(this.title, { lower: true, strict: true });
+  const baseSlug = slugify(this.title, { lower: true, strict: true });
+  let candidate = baseSlug;
+  let suffix = 2;
+
+  while (
+    await EventModel.exists({ slug: candidate, _id: { $ne: this._id } })
+  ) {
+    candidate = `${baseSlug}-${suffix}`;
+    suffix++;
+  }
+
+  this.slug = candidate;
 });
 
 // ------------------------------------------------------------------
