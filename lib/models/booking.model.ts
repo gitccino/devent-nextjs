@@ -37,8 +37,7 @@ const BookingSchema = new Schema<IBookingDocument>(
       lowercase: true,
       // Mongoose built-in validator for email format
       validate: {
-        validator: (value: string) =>
-          /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+        validator: (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
         message: "{VALUE} is not a valid email address",
       },
     },
@@ -74,6 +73,12 @@ BookingSchema.index({ eventId: 1, createdAt: -1 });
 
 // Covers "all bookings by this email" for user-facing booking history
 BookingSchema.index({ email: 1 });
+
+// Prevents the same email from booking the same event more than once
+BookingSchema.index(
+  { eventId: 1, email: 1 },
+  { unique: true, name: "uniq_event_email" },
+);
 
 // ------------------------------------------------------------------
 // Model
