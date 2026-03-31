@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import posthog from "posthog-js";
 // import "@/app/globals.css";
 
 export default function Navbar() {
@@ -18,7 +21,12 @@ export default function Navbar() {
         {routeOptions.map(({ label, href }) => (
           <li key={label}>
             <Button variant="link" asChild>
-              <Link href={href}>{label}</Link>
+              <Link
+                href={href}
+                onClick={() => posthog.capture("nav_link_clicked", { label, href })}
+              >
+                {label}
+              </Link>
             </Button>
           </li>
         ))}

@@ -1,0 +1,12 @@
+[
+  {
+    "event": "explore_button_clicked",
+    "description": "User clicks the Explore button on the landing page hero section, entering the events browsing funnel",
+    "file": "components/landing/explore-btn.tsx"
+  },
+  {
+    "event": "nav_link_clicked",
+    "description": "User clicks a navigation link in the top navigation bar",
+    "file": "components/nav-bar.tsx"
+  }
+]

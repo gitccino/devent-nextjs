@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import posthog from "posthog-js";
 
 export default function ExploreButton({
   className,
 }: React.ComponentProps<"button">) {
   return (
     <Button id="explore-btn" size="lg" className={cn("", className)} asChild>
-      <Link href="/events">
+      <Link href="/events" onClick={() => posthog.capture("explore_button_clicked")}>
         Explore
         <motion.div
           animate={{ y: [1, 3, 1] }}
