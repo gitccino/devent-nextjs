@@ -28,6 +28,7 @@ function EventComponent({ event }: EventComponentProps) {
         width={750}
         height={500}
         className="w-full"
+        loading="eager"
       />
 
       <div className="px-4 py-2">
