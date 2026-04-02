@@ -12,7 +12,10 @@ export default function ExploreButton({
 }: React.ComponentProps<"button">) {
   return (
     <Button id="explore-btn" size="lg" className={cn("", className)} asChild>
-      <Link href="/events" onClick={() => posthog.capture("explore_button_clicked")}>
+      <Link
+        href="#feature-events"
+        onClick={() => posthog.capture("explore_button_clicked")}
+      >
         Explore
         <motion.div
           animate={{ y: [1, 3, 1] }}

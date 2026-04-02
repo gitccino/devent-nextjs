@@ -113,6 +113,7 @@ const LightRays: React.FC<LightRaysProps> = ({
   const meshRef = useRef<Mesh | null>(null);
   const cleanupFunctionRef = useRef<(() => void) | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -351,7 +352,10 @@ void main() {
 
       window.addEventListener("resize", updatePlacement);
       updatePlacement();
-      animationIdRef.current = requestAnimationFrame(loop);
+      animationIdRef.current = requestAnimationFrame((t) => {
+        setIsReady(true);
+        loop(t);
+      });
 
       cleanupFunctionRef.current = () => {
         if (animationIdRef.current) {
@@ -463,7 +467,8 @@ void main() {
   return (
     <div
       ref={containerRef}
-      className={`w-full h-full pointer-events-none z-[3] overflow-hidden relative ${className}`.trim()}
+      className={`w-full h-full pointer-events-none z-3 overflow-hidden relative ${className}`.trim()}
+      style={{ opacity: isReady ? 1 : 0, transition: "opacity 0.4s ease" }}
     />
   );
 };
