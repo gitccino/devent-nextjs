@@ -12,25 +12,29 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="navbar-wrapper">
-      <Link href="/" className="font-logo text-xl -tracking-widest">
-        Devent
-      </Link>
+    <header className="navbar-container">
+      <div className="navbar-wrapper">
+        <Link href="/" className="font-logo text-xl -tracking-widest">
+          Devent
+        </Link>
 
-      <ul className="flex space-x-0">
-        {routeOptions.map(({ label, href }) => (
-          <li key={label}>
-            <Button variant="link" asChild>
-              <Link
-                href={href}
-                onClick={() => posthog.capture("nav_link_clicked", { label, href })}
-              >
-                {label}
-              </Link>
-            </Button>
-          </li>
-        ))}
-      </ul>
+        <ul className="flex space-x-0">
+          {routeOptions.map(({ label, href }) => (
+            <li key={label}>
+              <Button variant="link" asChild>
+                <Link
+                  href={href}
+                  onClick={() =>
+                    posthog.capture("nav_link_clicked", { label, href })
+                  }
+                >
+                  {label}
+                </Link>
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </header>
   );
 }

@@ -29,6 +29,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/opy8yjy.css" />
+      </head>
       <body className="min-h-full">
         <div className="fixed inset-0 -z-10">
           <LightRays

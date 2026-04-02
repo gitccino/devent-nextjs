@@ -4,7 +4,11 @@ import slugify from "slugify";
 // ------------------------------------------------------------------
 // Types
 // ------------------------------------------------------------------
-
+export const EVENT_MODES = [
+  "online",
+  "offline",
+  "hybrid",
+] as const satisfies EventMode[];
 export type EventMode = "online" | "offline" | "hybrid";
 
 /** Plain object shape — use this for API responses and component props */
@@ -147,9 +151,8 @@ EventSchema.pre("save", async function (this: IEventDocument) {
   let candidate = baseSlug;
   let suffix = 2;
 
-  while (
-    await EventModel.exists({ slug: candidate, _id: { $ne: this._id } })
-  ) {
+  // _id: { $ne: this._id } - Find docs where _id is not equal to the current doc's _id
+  while (await EventModel.exists({ slug: candidate, _id: { $ne: this._id } })) {
     candidate = `${baseSlug}-${suffix}`;
     suffix++;
   }

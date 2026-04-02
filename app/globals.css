@@ -1,4 +1,3 @@
-@import url("https://use.typekit.net/opy8yjy.css");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -51,7 +50,8 @@
     --font-logo: "lores-9-plus-wide-bold-alt";
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
+    /*--card: oklch(1 0 0);*/
+    --card: #151515;
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
@@ -160,10 +160,10 @@
         @apply text-6xl max-sm:text-3xl font-bold text-white;
     }
     h2 {
-        @apply text-2xl font-medium;
+        @apply text-2xl font-semibold text-white;
     }
     * {
-        @apply border-border outline-ring/50;
+        @apply border-border outline-ring/50 overscroll-none;
     }
     body {
         @apply bg-background text-foreground tracking-tight;
@@ -177,8 +177,12 @@
     @apply flex flex-1 w-full mx-auto max-w-6xl min-h-200 flex-col items-center justify-center py-32 px-16;
 }
 
+@utility navbar-container {
+    @apply sticky top-0 flex w-full backdrop-blur-sm;
+}
+
 @utility navbar-wrapper {
-    @apply sticky flex flex-1 top-0 mx-auto max-w-4xl w-full items-center justify-between h-10 backdrop-blur-sm;
+    @apply flex flex-1 max-w-4xl mx-auto w-full items-center justify-between h-10;
 }
 
 body {
