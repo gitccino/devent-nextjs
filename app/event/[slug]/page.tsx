@@ -21,7 +21,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { connectToDatabase } from "@/lib/mongodb";
-import { Event, IEvent } from "@/lib/models";
+import { Event, Booking, IEvent } from "@/lib/models";
 
 interface EventDetailsPageProps {
   params: Promise<{ slug: string }>;
@@ -38,7 +38,7 @@ export default function EventDetailsPage({ params }: EventDetailsPageProps) {
 async function EventDetails({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   await connectToDatabase();
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 2000)); // ignore this just to showcase loading
   const event = await Event.findOne({ slug }).lean();
 
   if (!event) return notFound();
@@ -52,7 +52,7 @@ async function EventDetails({ params }: { params: Promise<{ slug: string }> }) {
   ];
   const agendaItems = event.agenda;
   const tags = event.tags;
-  const bookings = 7;
+  const bookings = await Booking.countDocuments({ eventId: event._id });
 
   const similarEvents: IEvent[] = await getSimilarEventsBySlug(event.slug, 1);
 

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Event } from "@/lib/models";
 import { v2 as cloudinary } from "cloudinary";
 import { eventZodSchema } from "@/lib/validation";
+import { revalidateTag } from "next/cache";
 
 export async function POST(req: NextRequest) {
   try {
@@ -52,7 +53,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const createdEvent = await Event.create(event);
+    const createdEvent = await Event.create(parsed.data);
+    revalidateTag("feature-events", "max");
     return NextResponse.json(
       {
         message: "Event created successfully",

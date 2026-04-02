@@ -4,9 +4,22 @@ import { IEvent, Event } from "@/lib/models";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { connection } from "next/server";
-import { getFeatureEvents } from "@/actions/event";
+import { getEvents, getFeatureEvents } from "@/actions/event";
 
-export default async function EventsList() {
+export async function EventsList() {
+  const events = await getEvents();
+  return (
+    <ul className="grid grid-cols-3 gap-x-4 gap-y-8 max-sm:grid-cols-2">
+      {events.map((event) => (
+        <li key={event.slug}>
+          <EventComponent event={event} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export async function FeatureEventsList() {
   await connection(); // This component is dynamic
   // await connectToDatabase();
   // const events = (await Event.find()

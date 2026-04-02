@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -11,9 +11,13 @@ import posthog from "posthog-js";
 export default function BookEvent({ eventId }: { eventId: string }) {
   const [state, action, pending] = useActionState(bookEvent, null);
 
-  if (state?.success) {
+  useEffect(() => {
+    if (!state?.success) return;
     fireConfetti();
     posthog.capture("event_booked", state.data);
+  }, [state]);
+
+  if (state?.success) {
     return <p className="mt-4 text-success">Thank you for signing up!</p>;
   }
 

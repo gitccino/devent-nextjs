@@ -7,13 +7,13 @@ import posthog from "posthog-js";
 
 export default function Navbar() {
   const routeOptions = [
-    { label: "Events", href: "/events" },
+    { label: "Events", href: "/event" },
     { label: "Create Events", href: "/" },
   ];
 
   return (
-    <header className="navbar-container">
-      <div className="navbar-wrapper mx-10">
+    <header className="z-50 navbar-container">
+      <div className="navbar-wrapper px-4">
         <Link href="/" className="font-logo text-xl -tracking-widest">
           Devent
         </Link>

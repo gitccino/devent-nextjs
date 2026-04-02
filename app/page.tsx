@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import ExploreButton from "@/components/landing/explore-btn";
-import EventsList from "@/components/landing/events-list";
+import { FeatureEventsList } from "@/components/landing/events-list";
 import { Asterisk } from "lucide-react";
 
 // const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -14,7 +14,7 @@ export default async function Home() {
   // cacheLife("hours");
   return (
     <>
-      <section className="container-wrapper">
+      <section className="container-wrapper min-h-20">
         <h1 className="text-white font-logo -tracking-widest mb-2">Devent</h1>
         <h2>The Hub for every Devs</h2>
         <p className="text-muted-foreground text-center mt-4">
@@ -27,14 +27,14 @@ export default async function Home() {
 
       <section
         id="feature-events"
-        className="container-wrapper flex flex-col items-start"
+        className="container-wrapper flex flex-col items-start justify-start py-16"
       >
         <div className="flex flex-row gap-0.5 items-center mb-4">
-          <Asterisk color="var(--warning)" size={36} />
-          <h3 className="text-3xl font-semibold text-white">Feature Events</h3>
+          <Asterisk color="var(--warning)" size={24} />
+          <h3 className="text-2xl font-semibold text-white">Feature Events</h3>
         </div>
         <Suspense fallback={<p>Loading events...</p>}>
-          <EventsList />
+          <FeatureEventsList />
         </Suspense>
       </section>
     </>
