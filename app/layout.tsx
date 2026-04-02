@@ -33,7 +33,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://use.typekit.net/opy8yjy.css" />
       </head>
       <body className="min-h-full">
-        <div className="fixed inset-0 -z-10">
+        <div className="fixed inset-0 z-0">
           <LightRays
             raysOrigin="top-center"
             raysColor="#ffffff"
@@ -49,8 +49,10 @@ export default function RootLayout({
             distortion={0}
           />
         </div>
-        <Navbar />
-        {children}
+        <div className="relative z-10">
+          <Navbar />
+          {children}
+        </div>
       </body>
     </html>
   );

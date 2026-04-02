@@ -169,7 +169,7 @@
         @apply bg-background text-foreground tracking-tight;
     }
     html {
-        @apply font-sans;
+        @apply bg-background font-sans;
     }
 }
 

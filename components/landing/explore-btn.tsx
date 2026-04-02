@@ -13,7 +13,7 @@ export default function ExploreButton({
   return (
     <Button id="explore-btn" size="lg" className={cn("", className)} asChild>
       <Link
-        href="/events"
+        href="#feature-events"
         onClick={() => posthog.capture("explore_button_clicked")}
       >
         Explore

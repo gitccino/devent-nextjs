@@ -25,7 +25,10 @@ export default async function Home() {
         <ExploreButton className="mt-6" />
       </section>
 
-      <section className="container-wrapper flex flex-col items-start">
+      <section
+        id="feature-events"
+        className="container-wrapper flex flex-col items-start"
+      >
         <div className="flex flex-row gap-0.5 items-center mb-4">
           <Asterisk color="var(--warning)" size={36} />
           <h3 className="text-3xl font-semibold text-white">Feature Events</h3>

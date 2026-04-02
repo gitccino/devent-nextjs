@@ -3,7 +3,6 @@ import { CalendarDays, MapPin } from "lucide-react";
 import { IEvent, Event } from "@/lib/models";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { connectToDatabase } from "@/lib/mongodb";
 import { connection } from "next/server";
 import { getFeatureEvents } from "@/actions/event";
 

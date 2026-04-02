@@ -1,5 +1,6 @@
 "use server";
 
+import { z } from "zod";
 import { connectToDatabase } from "@/lib/mongodb";
 import { Booking } from "@/lib/models";
 import { bookingZodSchema } from "@/lib/validation";
@@ -12,13 +13,18 @@ export async function bookEvent(_: unknown, formData: FormData) {
 
   const parsed = bookingZodSchema.safeParse(raw);
   if (!parsed.success) {
-    return { success: false, message: parsed.error.issues[0].message };
+    const errors = z.treeifyError(parsed.error);
+    const message =
+      errors.properties?.email?.errors?.[0] ??
+      errors.properties?.eventId?.errors?.[0] ??
+      "Invalid input.";
+    return { success: false, message };
   }
 
   try {
     await connectToDatabase();
     await Booking.create(parsed.data);
-    return { success: true, message: "You're booked!" };
+    return { success: true, message: "You're booked!", data: parsed.data };
   } catch (e: unknown) {
     const isDuplicate =
       e instanceof Error &&

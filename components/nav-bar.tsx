@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <header className="navbar-container">
-      <div className="navbar-wrapper">
+      <div className="navbar-wrapper mx-10">
         <Link href="/" className="font-logo text-xl -tracking-widest">
           Devent
         </Link>
